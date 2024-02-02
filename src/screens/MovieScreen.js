@@ -45,9 +45,8 @@ const MovieScreen = (props) => {
                     onValueChange={handleClick}
                 />
             </Center>
-            <ResultsList movies={movies} category={category} navigation={navigation}/>
+            <ResultsList movies={movies} category={category} selectedValue={selectedValue} navigation={navigation}/>
         </Box>
-
     )
 }
 

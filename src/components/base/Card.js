@@ -3,7 +3,7 @@ import { Button, ButtonText, HStack, Heading, Image, VStack, View, Text } from '
 import { StyleSheet } from 'react-native';
 
 const Card = (props) => {
-    const { id, image, title, popularity, date, category, navigation, } = props
+    const { id, image, title, popularity, date, category, navigation, selectedValue, mediaType } = props
     const truncateTitle = (title, maxLength) => {
         return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
     };
@@ -21,7 +21,9 @@ const Card = (props) => {
                             onPress={() => {
                                 navigation.navigate('Result', {
                                     id: id,
-                                    category: category
+                                    category: category,
+                                    selectedValue: selectedValue,
+                                    mediaType: mediaType
                                 })
                             }}
                         >

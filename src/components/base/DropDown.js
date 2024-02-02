@@ -1,5 +1,17 @@
 import React from 'react'
-import { ChevronDownIcon, CheckIcon, Icon, Select, SelectBackdrop, SelectContent, SelectDragIndicator, SelectDragIndicatorWrapper, SelectIcon, SelectInput, SelectItem, SelectPortal, SelectTrigger } from '@gluestack-ui/themed';
+import { ChevronDownIcon, 
+        Icon, 
+        Select, 
+        SelectBackdrop, 
+        SelectContent, 
+        SelectDragIndicator, 
+        SelectDragIndicatorWrapper, 
+        SelectIcon, 
+        SelectInput, 
+        SelectItem, 
+        SelectPortal, 
+        SelectTrigger 
+    } from '@gluestack-ui/themed';
 import { StyleSheet } from 'react-native';
 
 const DropDown = ({items, isHovered, style, placeholder, onValueChange, selectedValue, isInvalid}) => {

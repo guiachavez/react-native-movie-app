@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import Card from '../../base/Card'
 
 const ResultsList = (props) => {
-  const { movies, category, navigation } = props
+  const { movies, category, navigation, selectedValue } = props
   return (
     <View>
       <FlatList 
@@ -19,8 +19,10 @@ const ResultsList = (props) => {
               date={item.release_date}
               uri={item.id}
               overview={item.overview}
+              mediaType={item.media_type ? item.media_type : ''}
               category={category}
               navigation={navigation}
+              selectedValue={selectedValue}
             />
           </VStack>
         )}

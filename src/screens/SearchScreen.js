@@ -1,5 +1,19 @@
 import React, { useState } from 'react'
-import { Box, Button, ButtonIcon, ButtonText, FormControl, FormControlLabel, FormControlLabelText, HStack, Icon, Input, InputField, InputIcon, SearchIcon, Text, VStack } from '@gluestack-ui/themed'
+import { Box, 
+    Button, 
+    ButtonIcon, 
+    ButtonText, 
+    FormControl, 
+    FormControlLabel, 
+    FormControlLabelText, 
+    HStack, 
+    Icon, 
+    Input, 
+    InputField, 
+    InputIcon, 
+    SearchIcon, 
+    Text, 
+    VStack } from '@gluestack-ui/themed'
 import { StyleSheet } from 'react-native'
 import DropDown from '../components/base/DropDown'
 import { getSearchResult } from '../services/api'
@@ -31,22 +45,20 @@ const SearchScreen = (props) => {
     }
     
     const handleSubmit = () => {
-        console.log(selectedValue)
         if (selectedValue !== '' && inputValue !== '') {
-            getSearchResult({ type: selectedValue, query: inputValue })
-              .then((searchResult) => {
-                console.log(searchResult);
-                setSearch(searchResult);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+                getSearchResult({ type: selectedValue, query: inputValue })
+                .then((searchResult) => {
+                    setSearch(searchResult);
+                })
+                .catch((error) => {
+                    console.log('API Request Error:', error);
+                });
         } else {
             if (selectedValue === '') {
-              setIsInvalid(true);
+                setIsInvalid(true);
             }
             if (inputValue === '') {
-              setSearchisInvalid(true);
+                setSearchisInvalid(true);
             }
         }
     }
@@ -100,7 +112,7 @@ const SearchScreen = (props) => {
                 </FormControl>
             
                 <Box>
-                    <ResultsList movies={search} category={category} navigation={navigation}/>
+                    <ResultsList movies={search} category={category} navigation={navigation} selectedValue={selectedValue}/>
                 </Box>
             </VStack>
         </Box>

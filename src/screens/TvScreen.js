@@ -20,14 +20,12 @@ const TvScreen = (props) => {
 
     const handleSelect = (itemValue) => {
         setSelectedValue(itemValue)
-        console.log('selected' + selectedValue)
-        console.log('itemValue' + itemValue)
         getResults({ category: category, type: itemValue })
         .then((tvSeries) => {
             setTvShow(tvSeries)
         })
         .catch(error => {
-            console.log('Error', error)
+            console.log('API Request Error:', error)
         })
     }
 
@@ -47,7 +45,7 @@ const TvScreen = (props) => {
                     onValueChange={handleSelect}
                 />
             </Center>
-            <ResultsList movies={tvShow} category={category} navigation={navigation}/>
+            <ResultsList movies={tvShow} category={category} navigation={navigation} selectedValue={selectedValue} />
         </Box>
     )
 }
