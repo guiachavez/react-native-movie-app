@@ -1,23 +1,21 @@
 import { Text, Box, Image, Heading, Center, View } from '@gluestack-ui/themed'
 import React, {useState, useEffect} from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
+import { fetchMovieDetails } from '../services/api'
 
 const ResultScreen = ({ navigation, route }) => {
-    const {id, category} = route.params
+    const {id, category, selectedValue, mediaType} = route.params
     const [movieDetails, setMovieDetails] = useState('');
 
     useEffect(() => {
-        const fetchMovieDetails = async () => {
-            try {
-              const response = await fetch(`https://api.themoviedb.org/3/${category}/${id}?api_key=15a5290d8da7e9f6f2aca4c3f0479ba7`);
-              const data = await response.json();
-              setMovieDetails(data);
-            } catch (error) {
-              console.error('Error fetching movie details:', error);
-            }
-          };
-      
-        fetchMovieDetails();
+        // fetch movie, tv, search
+        fetchMovieDetails({category: category, id: id, selectedValue: selectedValue, mediaType: mediaType})
+        .then((details) => {
+            setMovieDetails(details);
+        })
+        .catch(error => {
+            console.log('API Request Error:', error)
+        })
 
         navigation.setOptions({
             title: movieDetails.original_title ? movieDetails.original_title :  movieDetails.original_name,
@@ -28,8 +26,7 @@ const ResultScreen = ({ navigation, route }) => {
                 color: 'black'
             },
         });
-
-    }, [navigation, id, movieDetails]);
+    }, [navigation, id, movieDetails, selectedValue, mediaType]);
     
     return (
         <ScrollView>
@@ -39,7 +36,7 @@ const ResultScreen = ({ navigation, route }) => {
                     <Image h={270} w={270} alt={movieDetails.original_title ? movieDetails.original_title :  movieDetails.original_name + 'poster'} source={{ uri: `https://media.themoviedb.org/t/p/w440_and_h660_face/${movieDetails.poster_path}` }}/>
                 </Center>
                 <Text style={styles.overview}>{movieDetails.overview}</Text>
-                <Text size='sm'>Popularity: {movieDetails.popularity} | Release Date: {movieDetails.release_date}</Text>
+                <Text size='sm'>Popularity: {movieDetails.popularity} | Release Date: {movieDetails.release_date ? movieDetails.release_date : movieDetails.first_air_date}</Text>
             </Box>     
         </ScrollView>  
     )

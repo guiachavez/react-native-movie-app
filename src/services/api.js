@@ -13,7 +13,6 @@ export const getResults = async ({category, type}) => {
 
 export const getSearchResult = async ({type, query}) => {
     try {
-        console.log(type)
         const response = await axios.get(`https://api.themoviedb.org/3/search/${type}?query=${query}&api_key=15a5290d8da7e9f6f2aca4c3f0479ba7`);
         const searchResults = response.data.results;
         return searchResults
@@ -21,6 +20,34 @@ export const getSearchResult = async ({type, query}) => {
         console.error('API Request Error:', error);
     }
 }
+
+export const fetchMovieDetails = async ({category, id, selectedValue, mediaType}) => {
+    try {
+        let apiUrl;
+        let response;
+
+        if (category !== 'search') {
+            apiUrl = `https://api.themoviedb.org/3/${category}/${id}?api_key=15a5290d8da7e9f6f2aca4c3f0479ba7`;
+        } else {
+            if (selectedValue === 'multi') {
+                apiUrl = `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=15a5290d8da7e9f6f2aca4c3f0479ba7`;
+            } else {
+                apiUrl = `https://api.themoviedb.org/3/${selectedValue}/${id}?api_key=15a5290d8da7e9f6f2aca4c3f0479ba7`;
+            }
+        } 
+
+        if(apiUrl) {
+            response = await fetch(apiUrl);
+        } else {
+            console.error('API Request Error:', error);
+        }
+      
+        const data = await response.json();
+        return data
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+    }
+};
 
 
 
